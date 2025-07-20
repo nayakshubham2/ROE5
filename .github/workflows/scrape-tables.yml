@@ -1,0 +1,27 @@
+name: Scrape and Sum Table Numbers
+
+on:
+  push:
+    paths:
+      - 'scraper.js'
+      - '.github/workflows/scrape-tables.yml'
+  workflow_dispatch:
+
+jobs:
+  run-playwright:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install playwright
+
+      - name: Run Scraper by 22f1001034@ds.study.iitm.ac.in
+        run: node scraper.js
