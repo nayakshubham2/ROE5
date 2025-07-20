@@ -3,25 +3,27 @@ name: Scrape and Sum Table Numbers
 on:
   push:
     paths:
-      - 'scraper.js'
-      - '.github/workflows/scrape-tables.yml'
+      - 'scraper.py'
+      - '.github/workflows/scrape_tables.yml'
   workflow_dispatch:
 
 jobs:
-  run-playwright:
+  run-scraper:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          node-version: '18'
+          python-version: '3.11'
 
-      - name: Install Dependencies
-        run: npm install playwright
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
 
-      - name: Run Scraper by 22f1001034@ds.study.iitm.ac.in
-        run: node scraper.js
+      - name: Run scraper by 22f1001034@ds.study.iitm.ac.in
+        run: python scraper.py
